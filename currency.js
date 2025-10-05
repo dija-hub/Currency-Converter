@@ -24,6 +24,6 @@ const updateFlag=(element)=>{
       let currCode=element.value;
       let countryCode=countryList[currCode];
       let newSrc=`https://flagsapi.com/${countryCode}/flat/64.png`;
-      element.parentElement.querySelector("img");
+     let img= element.parentElement.querySelector("img");
       img.src =newSrc;
 }
