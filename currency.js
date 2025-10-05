@@ -3,10 +3,12 @@ const BASE_URL =
 
 const dropdowns=document.querySelectorAll(".dropdown select");
 
-for (code in countryList) {
-console.log(code,countryList[code]);
+
+for (let select of dropdown){
+      for (currCode in countryList) {
+         let newOption=document.createElement("option");
+         newOption.innerText= currCode;
+         newOption.value=currCode;
+         select.append(newOption);
+      };
 };
-
-// for (let select of dropdown{
-
-// })
