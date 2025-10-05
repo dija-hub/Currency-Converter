@@ -3,7 +3,6 @@ const BASE_URL =
 
 const dropdowns = document.querySelectorAll(".dropdown select");
 
-
 for (let select of dropdowns) {   
   for (let currCode in countryList) {  
     let newOption = document.createElement("option");
