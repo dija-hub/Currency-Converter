@@ -21,11 +21,11 @@ for (let select of dropdowns) {
      updateFlag(evt .target);
   })
 }
-// const updateFlag=(element)=>{
-//       let currCode=element.value;
-//       let countryCode=countryList[currCode];
-//       let newSrc=`https://flagsapi.com/${countryCode}/flat/64.png`;
-//       select.parentElement.querySelector("img");
-//       img.src =newSrc;
+const updateFlag=(element)=>{
+      let currCode=element.value;
+      let countryCode=countryList[currCode];
+      let newSrc=`https://flagsapi.com/${countryCode}/flat/64.png`;
+      select.parentElement.querySelector("img");
+      img.src =newSrc;
 
-// }
+}
