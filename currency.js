@@ -5,7 +5,7 @@ const dropdowns = document.querySelectorAll(".dropdown select");
 const btn=document.querySelector("form button")
 const fromCurr=document.querySelector(".from select")
 const toCurr=document.querySelector(".to select")
-
+const msg =document.querySelector(".msg")
 
 for (let select of dropdowns) {   
   for (let currCode in countryList) {  
@@ -32,6 +32,7 @@ const updateFlag=(element)=>{
       img.src =newSrc;
 }
 
+
 btn.addEventListener("click",async(evt) =>{
   evt .preventDefault()
 let amount=document.querySelector(".amount input");
@@ -45,7 +46,9 @@ const URL =`https://api.exchangerate.host/latest?base=${fromCurr.value}&symbols=
 let response= await fetch(URL);
 let data=await response.json()
 let rate = data[fromCurr.value.toLowerCase()][toCurr.value.toLowerCase()];
-console.log(rate);
+
+let finalAmount =amount*rate;
+msg.innerText=`${amtVal}${fromCurr.value} =${finalAmount} ${toCurr.value}`
 });
 
 
