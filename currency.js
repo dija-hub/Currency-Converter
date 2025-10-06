@@ -1,5 +1,4 @@
-const BASE_URL =
-  "https://api.exchangerate.host/latest";
+const BASE_URL = "https://api.exchangerate.host/latest";
 
 const dropdowns = document.querySelectorAll(".dropdown select");
 const btn = document.querySelector("form button");
@@ -7,8 +6,9 @@ const fromCurr = document.querySelector(".from select");
 const toCurr = document.querySelector(".to select");
 const msg = document.querySelector(".msg");
 
+// Populate dropdowns
 for (let select of dropdowns) {
-  for (currCode in countryList) {
+  for (let currCode in countryList) {
     let newOption = document.createElement("option");
     newOption.innerText = currCode;
     newOption.value = currCode;
@@ -25,6 +25,15 @@ for (let select of dropdowns) {
   });
 }
 
+// Update flag images
+const updateFlag = (element) => {
+  let currCode = element.value;
+  let countryCode = countryList[currCode];
+  let img = element.parentElement.querySelector("img");
+  img.src = `https://flagsapi.com/${countryCode}/flat/64.png`;
+};
+
+// Fetch and display conversion
 const updateExchangeRate = async () => {
   let amount = document.querySelector(".amount input");
   let amtVal = amount.value;
@@ -32,28 +41,35 @@ const updateExchangeRate = async () => {
     amtVal = 1;
     amount.value = "1";
   }
-  const URL = `https://api.exchangerate.host/latest?base=${fromCurr.value}&symbols=${toCurr.value}`;
-  let response = await fetch(URL);
-  let data = await response.json();
-  let rate = data[toCurr.value.toLowerCase()];
 
-  let finalAmount = amtVal * rate;
-  msg.innerText = `${amtVal} ${fromCurr.value} = ${finalAmount} ${toCurr.value}`;
+  const base = fromCurr.value.toUpperCase();
+  const symbols = toCurr.value.toUpperCase();
+  const URL = `${BASE_URL}?base=${base}&symbols=${symbols}`;
+
+  try {
+    let response = await fetch(URL);
+    let data = await response.json();
+
+    if (data.rates && data.rates[symbols] !== undefined) {
+      let rate = data.rates[symbols];
+      let finalAmount = amtVal * rate;
+      msg.innerText = `${amtVal} ${fromCurr.value} = ${finalAmount.toFixed(2)} ${toCurr.value}`;
+    } else {
+      msg.innerText = "Conversion failed — check currency codes!";
+    }
+  } catch (error) {
+    msg.innerText = "Something went wrong!";
+    console.error(error);
+  }
 };
 
-const updateFlag = (element) => {
-  let currCode = element.value;
-  let countryCode = countryList[currCode];
-  let newSrc = `https://flagsapi.com/${countryCode}/flat/64.png`;
-  let img = element.parentElement.querySelector("img");
-  img.src = newSrc;
-};
-
+// Button click
 btn.addEventListener("click", (evt) => {
   evt.preventDefault();
   updateExchangeRate();
 });
 
+// Run on page load
 window.addEventListener("load", () => {
   updateExchangeRate();
 });
