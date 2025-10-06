@@ -1,5 +1,5 @@
 const BASE_URL =
-  "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies";
+  "https://api.exchangerate.host/latest";
 
 const dropdowns = document.querySelectorAll(".dropdown select");
 const btn=document.querySelector("form button")
@@ -41,10 +41,10 @@ if (amtVal ==="" || amtVal <1){
   amount.value="1";
 }
 
-const URL =`${BASE_URL}/${fromCurr.value.toLowerCase()}/${toCurr.value.toLowerCase()}.json`;
+const URL =`https://api.exchangerate.host/latest?base=${fromCurr.value}&symbols=${toCurr.value}`;
 let response= await fetch(URL);
 let data=await response.json()
-let rate =data[toCurr.value.toLowerCase()]
+let rate = data[fromCurr.value.toLowerCase()][toCurr.value.toLowerCase()];
 console.log(rate);
 });
 
