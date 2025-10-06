@@ -42,8 +42,10 @@ if (amtVal ==="" || amtVal <1){
 }
 
 const URL =`${BASE_URL}/${fromCurr.value.toLowerCase()}/${toCurr.value.toLowerCase()}.json`;
-let response= await fetch(URL)
-console.log(response);
+let response= await fetch(URL);
+let data=await response.json()
+let rate =data[toCurr.value.toLowerCase()]
+console.log(rate);
 });
 
 
