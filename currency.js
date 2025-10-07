@@ -49,7 +49,7 @@ const updateExchangeRate = async () => {
   let response = await fetch(URL);
   let data = await response.json();
 
-  // Access nested currency value
+
   let rate = data[fromCurr.value.toLowerCase()][toCurr.value.toLowerCase()];
 
   let finalAmount = (amtVal * rate).toFixed(2);
@@ -63,6 +63,6 @@ btn.addEventListener("click", (evt) => {
 });
 
 
-window.addEventListener("load", () => {
-  updateExchangeRate();
-});
+// window.addEventListener("load", () => {
+//   updateExchangeRate();
+// });
